@@ -11,7 +11,6 @@ const exerciseSlice = createSlice({
         setExercises: (state, {payload}) => payload,
         addExerciseReducer: (state, {payload}) => state.concat(payload),
         removeExerciseReducer: (state, {payload}) => {
-            console.log(state);
             return state.filter(e => e.id !== payload.id)
         }
     }

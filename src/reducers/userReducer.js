@@ -3,6 +3,8 @@ import { loginUserServer } from "../services/loginService";
 import { getUser } from "../services/userService";
 import { setToken } from "../services/loginService";
 
+import { setNotification } from "./notificationReducer";
+
 const userSlice = createSlice({
     name: "user",
     initialState: null,
@@ -24,7 +26,7 @@ export function loginUser(username, pwd) {
             window.localStorage.setItem("user", JSON.stringify(user));
             dispatch(setUser(user));
         } catch (e) {
-            console.error(e);
+            dispatch(setNotification(e.message, 'error'));
         }
     }
 }
