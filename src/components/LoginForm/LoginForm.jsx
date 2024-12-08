@@ -25,7 +25,7 @@ function LoginForm() {
     const btnEnabled = Object.values(formFields).every(value => value.trim() !== '');
     
     return (
-        <div className='flex items-center justify-center w-full h-svh bg-background'>
+        <div className='flex items-center justify-center w-full h-full bg-background'>
             <div className='rounded-lg shadow-xl p-10 bg-white gap-3'>
                 <h2 className='text-center text-lg font-bold'>Login to Gym App</h2>
                 <form action="" onSubmit={handleLogin} className='flex items-center gap-3 justify-center flex-col'>

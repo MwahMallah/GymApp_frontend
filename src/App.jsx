@@ -16,7 +16,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // if user already logged in just set his 
+        // if user was already logged in just set his 
         // user authentificator from local storage
         const userAuthString = window.localStorage.getItem("userAuth");
         if (userAuthString === null)
@@ -26,14 +26,14 @@ function App() {
     }, [dispatch]);
 
     if (!user) {
-        return <>
+        return <div className='bg-background w-svw h-svh'>
             <Notification />
-            <LoginForm />;
-        </> 
+            <LoginForm />
+        </div> 
     }
 
     return (
-        <>
+        <div className='bg-background w-svw h-svh'>
             <Notification />
             <Routes>
                 <Route path="/" element={<Navbar />}>
@@ -42,7 +42,7 @@ function App() {
                     <Route path="/exercises" element={<Exercises />} />
                 </Route>
             </Routes>
-        </>
+        </div>
     )
 }
 

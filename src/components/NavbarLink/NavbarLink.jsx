@@ -2,11 +2,13 @@ import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
 
-function NavbarLink({ to, name, iconPath, ...rest }) {
+function NavbarLink({ to, name, iconPath, chosen, onClick, viewBox, ...rest }) {
+    const color = chosen ? "text-primary" : "text-gray-600 hover:text-primary-muted"
+
     return (
-        <li>
-            <Link to={to} className="flex gap-2 text-gray-600 hover:text-primary hover:fill-primary transition-300">
-                <svg width="20" viewBox="0 0 36 35" className="fill-current">
+        <li onClick={onClick} name={name}>
+            <Link to={to} className={`flex gap-2 ${color} transition-300`}>
+                <svg width="20" viewBox={viewBox} className="fill-current">
                     <path d={iconPath} {...rest}/>
                 </svg>
                 {name}
@@ -18,7 +20,10 @@ function NavbarLink({ to, name, iconPath, ...rest }) {
 NavbarLink.propTypes = {
     to: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    iconPath: PropTypes.string.isRequired
+    iconPath: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    chosen: PropTypes.bool,
+    viewBox: PropTypes.string.isRequired
 };
 
 export default NavbarLink
