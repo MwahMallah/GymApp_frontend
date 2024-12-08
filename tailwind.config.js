@@ -8,7 +8,7 @@ export default {
         extend: {
             colors: {
                 background: '#f4f6f4',
-                elements: '#6FBC22'
+                primary: '#6FBC22'
             }
         },
     },
