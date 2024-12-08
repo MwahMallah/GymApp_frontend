@@ -20,10 +20,21 @@ export function loginUser(username, pwd) {
     return async dispatch => {
         try {
             const userAuth = await loginUserServer(username, pwd);
-            console.log(userAuth);
+            window.localStorage.setItem("userAuth", JSON.stringify(userAuth));
             setToken(userAuth.token);
             const user = await getUser(userAuth.id);
-            window.localStorage.setItem("user", JSON.stringify(user));
+            dispatch(setUser(user));
+        } catch (e) {
+            dispatch(setNotification(e.message, 'error'));
+        }
+    }
+}
+
+export function loginUserAuth(userAuth) {
+    return async dispatch => {
+        try {
+            setToken(userAuth.token);
+            const user = await getUser(userAuth.id);
             dispatch(setUser(user));
         } catch (e) {
             dispatch(setNotification(e.message, 'error'));

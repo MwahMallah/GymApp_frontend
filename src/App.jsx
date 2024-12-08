@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 
 import { useEffect } from "react";
-import { setUser } from "./reducers/userReducer";
+import { loginUserAuth } from "./reducers/userReducer";
 
 import LoginForm from "./components/LoginForm/LoginForm";
 import Navbar from "./components/Navbar/Navbar";
@@ -15,10 +15,15 @@ function App() {
     const user = useSelector(({user}) => user);
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     const user = JSON.parse(window.localStorage.getItem("user"));
-    //     dispatch(setUser(user));
-    // }, [dispatch]);
+    useEffect(() => {
+        // if user already logged in just set his 
+        // user authentificator from local storage
+        const userAuthString = window.localStorage.getItem("userAuth");
+        if (userAuthString === null)
+            return;
+        const userAuth = JSON.parse(userAuthString); 
+        dispatch(loginUserAuth(userAuth));
+    }, [dispatch]);
 
     if (!user) {
         return <>
