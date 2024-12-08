@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import LoginForm from "./components/LoginForm/LoginForm";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./routes/Home/Home";
+
 import { useEffect } from "react";
 import { setUser } from "./reducers/userReducer";
+
+import LoginForm from "./components/LoginForm/LoginForm";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./routes/Home/Home";
 import Friends from "./routes/Friends/Friends";
 import Exercises from "./routes/Exercises/Exercises";
+import Notification from "./components/Notification/Notification";
 
 function App() {
     const user = useSelector(({user}) => user);
@@ -18,17 +21,23 @@ function App() {
     // }, [dispatch]);
 
     if (!user) {
-        return <LoginForm />;
+        return <>
+            <Notification />
+            <LoginForm />;
+        </> 
     }
 
     return (
-        <Routes>
-            <Route path="/" element={<Navbar />}>
-                <Route index element={<Home />} />
-                <Route path="/friends" element={<Friends />} />
-                <Route path="/exercises" element={<Exercises />} />
-            </Route>
-        </Routes>
+        <>
+            <Notification />
+            <Routes>
+                <Route path="/" element={<Navbar />}>
+                    <Route index element={<Home />} />
+                    <Route path="/friends" element={<Friends />} />
+                    <Route path="/exercises" element={<Exercises />} />
+                </Route>
+            </Routes>
+        </>
     )
 }
 
