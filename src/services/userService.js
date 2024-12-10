@@ -18,6 +18,16 @@ export async function getAllUsersFilteredServer(filter) {
     return data;
 }
 
+export async function updateUserServer(user) {
+    const {data} = await axios.put(`${baseUrl}`, user, {
+        headers: {
+            Authorization: token, 
+            "Content-Type": "application/json"
+        }
+    });
+    return data;
+}
+
 export async function addFriendServer(id) {
     console.log("token: ", token);
     try{

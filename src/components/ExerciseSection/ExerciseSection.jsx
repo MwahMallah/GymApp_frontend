@@ -28,7 +28,7 @@ function ExerciseSection() {
         : exercisesThisWeek.filter(e => e.name === selectedExerciseType);
 
     return (
-        <div>
+        <div className="card col-span-3 rounded-3xl">
             <h2>Tracking History (this week)</h2>
             <Selector options={uniqueExerciseNames} 
                 handleSelectionChange={handleExerciseSelection}/>
