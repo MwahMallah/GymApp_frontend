@@ -2,6 +2,8 @@ import FriendsList from "../FriendList/FriendsList"
 import Filter from "../Filter/Filter"
 import { useState } from "react"
 
+import Chat from "../Chat/Chat";
+
 function FriendsSection() {
     const [filterText, setFilterText] = useState("");
     const [swipe, setSwipe] = useState(null);
@@ -35,9 +37,10 @@ function FriendsSection() {
     if (selectedFriend !== null) {
         return (
             <div className="card col-span-1 rounded-3xl overflow-clip">
-                <div className={`transform transition-all duration-500`}> 
-                    <button onClick={backToList}>Back</button>
-                    <h2>Selected {selectedFriend.username}</h2>
+                <div className={`transform h-full transition-all duration-500`}>
+                    <Chat 
+                        friend={selectedFriend} 
+                        handleBack={backToList}/>
                 </div>
             </div>
         )

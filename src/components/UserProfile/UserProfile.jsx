@@ -7,7 +7,7 @@ function UserProfile() {
 
     return (
         <div className="card flex flex-row gap-2 align-center justify-center">
-            <img className="w-7 h-7" 
+            <img className="w-7 h-7 rounded-full" 
                 src={user.photo_url || default_user_url}  
                 alt="user photo" />
             {user.username}
