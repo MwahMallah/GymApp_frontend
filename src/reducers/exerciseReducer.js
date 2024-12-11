@@ -8,7 +8,7 @@ const exerciseSlice = createSlice({
     name: "exercise",
     initialState: [],
     reducers: {
-        setExercises: (state, {payload}) => payload,
+        setExercises: (state, { payload }) => Array.isArray(payload) ? payload : state,
         addExerciseReducer: (state, {payload}) => state.concat(payload),
         removeExerciseReducer: (state, {payload}) => {
             return state.filter(e => e.id !== payload.id)
@@ -39,7 +39,6 @@ export function initializeAllExercises(date) {
 export function removeExercise(exercise) {
     return async function (dispatch) {
         await removeExerciseServer(exercise.id);
-        dispatch(setExercises(exercise))
         dispatch(removeExerciseReducer(exercise));
     }
 }
