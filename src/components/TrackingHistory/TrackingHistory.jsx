@@ -1,14 +1,16 @@
-import ExerciseList from "../ExerciseList/ExerciseList"
 import { useSelector } from "react-redux";
-import Selector from "../Selector/Selector";
 import { useState } from "react";
+
+import ExerciseList from "../ExerciseList/ExerciseList";
+import Selector from "../Selector/Selector";
+
 import { startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
 
 const currentDate = new Date();
 const startOfCurrentWeek = startOfWeek(currentDate, { weekStartsOn: 1 });
 const endOfCurrentWeek = endOfWeek(currentDate, { weekStartsOn: 1 });
 
-function ExerciseSection() {
+function TrackingHistory() {
     const exercises = useSelector(({user}) => user.exercises);
     const exercisesThisWeek = exercises.filter(e => {
         const exerciseDate = new Date(e.date);
@@ -28,14 +30,13 @@ function ExerciseSection() {
         : exercisesThisWeek.filter(e => e.name === selectedExerciseType);
 
     return (
-        <div className="card col-span-3 rounded-3xl">
+        <>
             <h2>Tracking History (this week)</h2>
             <Selector options={uniqueExerciseNames} 
                 handleSelectionChange={handleExerciseSelection}/>
-            <ExerciseList exercises={filteredExercises}/>
-        </div>
-
+            <ExerciseList exercises={filteredExercises}/>        
+        </>
     )
 }
 
-export default ExerciseSection
+export default TrackingHistory
