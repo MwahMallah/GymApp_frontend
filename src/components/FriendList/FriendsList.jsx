@@ -1,22 +1,40 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux"
+import FriendItem from "../FriendItem/FriendItem";
+import { useEffect, useState } from "react";
+import { getUnseenMessages } from "../../services/messageService";
 
 function FriendsList({filter, onFriendClick}) {
+    const user = useSelector(({user}) => user);
     const friends = useSelector(({user}) => user.friends);
+    const [unseenMessages, setUnseenMessages] = useState([]);
+
+    useEffect(() => {
+        getUnseenMessages(user.id)
+            .then(newUnseenMessages => {
+                console.log(newUnseenMessages);
+                setUnseenMessages(newUnseenMessages)
+            });
+    }, []);
+
     const filteredFriends = friends.filter(f => f.username.startsWith(filter));
 
+    console.log(unseenMessages);
+    
     return (
         <div className="flex flex-col gap-5 my-3">
-            {filteredFriends.map(friend => 
-                <div 
-                    key={friend.id} 
-                    className="flex flex-row gap-5 card items-center cursor-pointer 
-                               border border-2 border-transparent rounded-md p-2 
-                               transition-all duration-300 hover:border-primary"
-                    onClick={() => onFriendClick(friend)}>
-                    <img className="w-10 h-10" src={friend.photo_url} alt="friend photo" />
-                    <p key={friend.id}>{friend.username}</p>
-                </div>
+            {filteredFriends.map(friend => {
+                const msgFromFriend = unseenMessages
+                    .filter(m => m.from === friend.username).length;
+
+                return (
+                    <FriendItem  
+                        key={friend.id} 
+                        onClick={() => onFriendClick(friend)} 
+                        friend={friend}
+                        unseenMessages={msgFromFriend}/>
+                );
+            } 
             )}
         </div>
     )
