@@ -12,14 +12,11 @@ function FriendsList({filter, onFriendClick}) {
     useEffect(() => {
         getUnseenMessages(user.id)
             .then(newUnseenMessages => {
-                console.log(newUnseenMessages);
                 setUnseenMessages(newUnseenMessages)
             });
     }, []);
 
     const filteredFriends = friends.filter(f => f.username.startsWith(filter));
-
-    console.log(unseenMessages);
     
     return (
         <div className="flex flex-col gap-5 my-3">
