@@ -1,5 +1,5 @@
-
 import TrackingHistory from "../TrackingHistory/TrackingHistory";
+import PieCharts from "../PieCharts/PieCharts";
 
 function DataSection() {
     return (
@@ -8,8 +8,8 @@ function DataSection() {
                 <TrackingHistory />
             </div>
             <div className="flex-grow-[1]">
-                <div className="bg-gray-600 h-[200px] w-full">
-
+                <div className="h-[200px] w-full">
+                    <PieCharts />
                 </div>
             </div>
         </div>

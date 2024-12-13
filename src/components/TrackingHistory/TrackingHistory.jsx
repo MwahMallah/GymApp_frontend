@@ -4,7 +4,6 @@ import { useState } from "react";
 import Selector from "../Selector/Selector";
 
 import { startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
-
 import { BarChart, Bar, Cell, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 
 
@@ -95,7 +94,7 @@ function TrackingHistory() {
                         handleSelectionChange={handleExerciseTypeSelection}/>
                 </div>
             </div>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={data}>
                     <XAxis dataKey="day"/>
                     <YAxis />
