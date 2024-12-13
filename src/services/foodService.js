@@ -13,8 +13,8 @@ export async function getFoodServer(date) {
     return data;
 }
 
-export async function addFoodServer(name, date) {
-    const {data} = await axios.post(baseUrl, {name, date}, 
+export async function addFoodServer( name, size, date) {
+    const {data} = await axios.post(baseUrl, {name, size, date},
         {
             headers: {
                 Authorization: token,
@@ -33,4 +33,19 @@ export async function removeFoodServer(id) {
             "Content-Type": "application/json"
         }
     })
+}
+
+export async function updateFoodServer(food) {
+    const { id, ...updateFields } = food;
+    const { data } = await axios.put(
+        `${baseUrl}/${id}`,
+        updateFields,
+        {
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json"
+            }
+        }
+    );
+    return data;
 }
