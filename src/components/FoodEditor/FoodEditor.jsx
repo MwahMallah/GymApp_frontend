@@ -30,11 +30,11 @@ function FoodEditor({ food }) {
                 date.setHours(hours, minutes, 0, 0); // Update timestamp with valid time
                 updatedRecord.date = date.toISOString();
             } else {
-                dispatch(setNotification("Invalid time format. Please enter in HH:MM format."));
+                dispatch(setNotification("Invalid time format. Please enter in HH:MM format.", type="error"));
                 return;
             }
         } else {
-            dispatch(setNotification("Invalid time format. Please enter in HH:MM format."));
+            dispatch(setNotification("Invalid time format. Please enter in HH:MM format.", type="error"));
             return;
         }
 
