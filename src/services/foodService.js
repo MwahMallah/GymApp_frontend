@@ -36,10 +36,9 @@ export async function removeFoodServer(id) {
 }
 
 export async function updateFoodServer(food) {
-    const { id, ...updateFields } = food;
     const { data } = await axios.put(
-        `${baseUrl}/${id}`,
-        updateFields,
+        `${baseUrl}/${food.id}`,
+        food,
         {
             headers: {
                 Authorization: token,

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { setUser } from "./userReducer.js";
-import { getFoodServer, addFoodServer, removeFoodServer } from "../services/foodService.js";
+import { getFoodServer, addFoodServer, removeFoodServer, updateFoodServer } from "../services/foodService.js";
 import { getUser } from "../services/userService.js";
 
 const foodSlice = createSlice({
@@ -42,15 +42,9 @@ export function removeFood(food) {
     };
 }
 
-export function updateFood(foodArray) {
+export function updateFood(food) {
     return async function(dispatch) {
-        await Promise.all(
-            foodArray.map(async (food) => {
-                await updateFoodServer(food);
-            })
-        );
-        foodArray.forEach(food => {
-            dispatch(updateFoodReducer(food));
-        });
+        const updatedFood = await updateFoodServer(food);
+        dispatch(updateFoodReducer(updatedFood));
     };
 }

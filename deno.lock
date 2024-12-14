@@ -2,9 +2,12 @@
   "version": "4",
   "specifiers": {
     "npm:@eslint/js@^9.13.0": "9.16.0",
+    "npm:@eslint/js@^9.17.0": "9.17.0",
     "npm:@reduxjs/toolkit@^2.3.0": "2.5.0_react@18.3.1_react-redux@9.2.0__@types+react@18.3.14__react@18.3.1__redux@5.0.1_@types+react@18.3.14_redux@5.0.1",
     "npm:@types/react-dom@^18.3.1": "18.3.2",
+    "npm:@types/react-dom@^18.3.5": "18.3.5_@types+react@18.3.14",
     "npm:@types/react@^18.3.12": "18.3.14",
+    "npm:@types/react@^18.3.16": "18.3.16",
     "npm:@vitejs/plugin-react@^4.3.3": "4.3.4_vite@5.4.11_@babel+core@7.26.0",
     "npm:autoprefixer@^10.4.20": "10.4.20_postcss@8.4.49",
     "npm:axios@^1.7.7": "1.7.9",
@@ -279,6 +282,9 @@
     "@eslint/js@9.16.0": {
       "integrity": "sha512-tw2HxzQkrbeuvyj1tG2Yqq+0H9wGoI2IMk4EOsQeX+vmd75FtJAzf+gTA69WF+baUKRYQ3x2kbLE08js5OsTVg=="
     },
+    "@eslint/js@9.17.0": {
+      "integrity": "sha512-Sxc4hqcs1kTu0iID3kcZDW3JHq2a77HO9P8CP6YEA/FpH3Ll8UXE2r/86Rz9YJLKme39S9vU5OWNjC6Xl0Cr3w=="
+    },
     "@eslint/object-schema@2.1.5": {
       "integrity": "sha512-o0bhxnL89h5Bae5T318nFoFzGy+YE5i/gGkoPAgkmTVdRKTiv3p8JHevPiPaMwoloKfEiiaHlawCqaZMqRm+XQ=="
     },
@@ -508,11 +514,24 @@
     "@types/react-dom@18.3.2": {
       "integrity": "sha512-Fqp+rcvem9wEnGr3RY8dYNvSQ8PoLqjZ9HLgaPUOjJJD120uDyOxOjc/39M4Kddp9JQCxpGQbnhVQF0C0ncYVg==",
       "dependencies": [
-        "@types/react"
+        "@types/react@18.3.14"
+      ]
+    },
+    "@types/react-dom@18.3.5_@types+react@18.3.14": {
+      "integrity": "sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==",
+      "dependencies": [
+        "@types/react@18.3.14"
       ]
     },
     "@types/react@18.3.14": {
       "integrity": "sha512-NzahNKvjNhVjuPBQ+2G7WlxstQ+47kXZNHlUvFakDViuIEfGY926GqhMueQFZ7woG+sPiQKlF36XfrIUVSUfFg==",
+      "dependencies": [
+        "@types/prop-types",
+        "csstype"
+      ]
+    },
+    "@types/react@18.3.16": {
+      "integrity": "sha512-oh8AMIC4Y2ciKufU8hnKgs+ufgbA/dhPTACaZPM86AbwX9QwnFtSoPWEeRUj8fge+v6kFt78BXcDhAU1SrrAsw==",
       "dependencies": [
         "@types/prop-types",
         "csstype"
@@ -1086,7 +1105,7 @@
         "@eslint/config-array",
         "@eslint/core",
         "@eslint/eslintrc",
-        "@eslint/js",
+        "@eslint/js@9.16.0",
         "@eslint/plugin-kit",
         "@humanfs/node",
         "@humanwhocodes/module-importer",
@@ -1875,7 +1894,7 @@
     "react-redux@9.2.0_@types+react@18.3.14_react@18.3.1_redux@5.0.1": {
       "integrity": "sha512-ROY9fvHhwOD9ySfrF0wmvu//bKCQ6AeZZq1nJNtbDC+kk5DuSuNX/n6YWYF/SYy7bSba4D4FSz8DJeKY/S/r+g==",
       "dependencies": [
-        "@types/react",
+        "@types/react@18.3.14",
         "@types/use-sync-external-store",
         "react",
         "redux",
@@ -2079,8 +2098,8 @@
     "spinners-react@1.0.10_@types+react@18.3.14_@types+react-dom@18.3.2_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-VZy4IhnIVTw8tcsuWtUGz1VfRK4EDnnlIVd88ezkfiDQyYlmo+QbIAjJD1BRghTBr5RJBULuJ4MIPsJapTp1xw==",
       "dependencies": [
-        "@types/react",
-        "@types/react-dom",
+        "@types/react@18.3.14",
+        "@types/react-dom@18.3.2",
         "react",
         "react-dom"
       ]
@@ -2410,10 +2429,10 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@eslint/js@^9.13.0",
+        "npm:@eslint/js@^9.17.0",
         "npm:@reduxjs/toolkit@^2.3.0",
-        "npm:@types/react-dom@^18.3.1",
-        "npm:@types/react@^18.3.12",
+        "npm:@types/react-dom@^18.3.5",
+        "npm:@types/react@^18.3.16",
         "npm:@vitejs/plugin-react@^4.3.3",
         "npm:autoprefixer@^10.4.20",
         "npm:axios@^1.7.7",

@@ -4,20 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import FoodEditor from "../FoodEditor/FoodEditor";
 
 function FoodSection () {
-    
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const food = useSelector(({user, allFood}) => allFood);
     const dispatch = useDispatch();
 
     function changeDate(e) {
-        console.log(e.target.value);
         setDate(e.target.value);
     }
 
     async function handleAddFood() {
         const foodName = "Apple";
         const foodSize = 200;
-        dispatch(addFood(foodName, foodSize, date));
+
+        const now = new Date();
+        const fullTimestamp = new Date(`${date}T${now.toTimeString().split(' ')[0]}`);
+
+        dispatch(addFood(foodName, foodSize, fullTimestamp.toISOString()));
+        dispatch(initializeAllFood(date));
     }
 
     useEffect(() => {
@@ -50,24 +53,3 @@ function FoodSection () {
 }
 
 export default FoodSection;
-
-/* (
-        <div className="card col-span-3 rounded-3xl">
-            
-            <h2>Food</h2>
-            <label htmlFor="date"></label>
-            <input type="date" name="" 
-                id="date" lang="en" 
-                value={date} 
-                onChange={changeDate}/>
-            {food.length === 0
-                ? <p>No food records for this date</p>
-                : <FoodEditor food={food}/>
-            }
-            <form action="" onSubmit={handleAddFood}>
-                <label htmlFor="name">Food name: </label>
-                <input type="text" name="name" id="" />
-                <button type="submit">Add food</button>
-            </form>
-        </div>
-    )*/
