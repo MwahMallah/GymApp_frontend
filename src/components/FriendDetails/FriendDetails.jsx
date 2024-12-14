@@ -26,7 +26,7 @@ function FriendDetails({friendId, handleBackClick}) {
                 onClick={handleBackClick}>
                 ← Back
             </button>
-            <img src={friend.photo_url} alt="" />
+            <img src={friend.photo_url} className="w-28 h-28" alt="" />
             <h2 className="text-lg">{friend.name}</h2>
 
             <div className="flex-grow mr-8 w-full">
