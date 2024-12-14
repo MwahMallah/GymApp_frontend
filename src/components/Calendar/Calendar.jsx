@@ -1,67 +1,76 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useRef, useState } from "react";
 
-const WeekSwitcher = () => {
-  var shift = 0;
-  var currDate = new Date();
+const Calendar = ({chosenDate}) => {
+    const currDate = new Date();
+    const weekShift = useRef(0);
+    const [currentWeek, setCurrentWeek] = useState(getCurrentWeek());
 
-  const [currentWeek, setCurrentWeek] = useState(getCurrentWeek());
+    function getCurrentWeek() {
+        const pivotDate = new Date(currDate);
+        pivotDate.setDate(currDate.getDate() + weekShift.current * 7);
 
-  function getCurrentWeek() {
-    //var currDate = new Date();
-    currDate.setDate(currDate.getDate() + shift);
-    const startOfWeek = currDate.getDate() - currDate.getDay();
-    const week = [];
-  
-    for (let i = 1; i < 8; i++) {
-      const day = new Date(currDate);
-      day.setDate(startOfWeek + i);
-      week.push({
-        name: day.toDateString().slice(0, 3),
-        date: day.getDate() + " " + day.toDateString().split(" ")[1],
-      });
+        const startOfWeek = pivotDate.getDate() - pivotDate.getDay();
+        const week = [];
+      
+        for (let i = 1; i < 8; i++) {
+            const day = new Date(pivotDate);
+            day.setDate(startOfWeek + i);
+            week.push({
+                name: day.toDateString().slice(0, 3),
+                date: day.getDate() + " " + day.toDateString().split(" ")[1],
+            });
+        }
+        return week;
     }
-    return week;
-  }
-  
-  const goToPreviousWeek = () => {
-    shift = -7;
-    setCurrentWeek(getCurrentWeek());
-  };
-  
-  const goToNextWeek = () => {
-    shift = 7;
-    setCurrentWeek(getCurrentWeek());
-  };
+    
+    const goToPreviousWeek = () => {
+        weekShift.current -= 1;
+        setCurrentWeek(getCurrentWeek());
+    };
+    
+    const goToNextWeek = () => {
+        weekShift.current += 1;
+        setCurrentWeek(getCurrentWeek());
+    };
 
-  return (
-    <div className="flex items-center justify-center space-x-4 p-4">
-      <button
-        onClick={goToPreviousWeek}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-      >
-        Previous
-      </button>
+    return (
+        <div className="flex items-center justify-center space-x-4 p-4">
+            <button
+                onClick={goToPreviousWeek}
+                className="bg-primary-muted text-white px-4 py-2 rounded-lg hover:bg-primary transition">
+              Previous
+            </button>
 
-      <div className="flex space-x-2">
-        {currentWeek.map((day, index) => (
-          <div
-            key={index}
-            className="bg-gray-200 text-center py-2 px-4 rounded-lg text-lg"
-          >
-            <div>{day.name}</div>
-            <div className="text-sm text-gray-600">{day.date}</div>
-          </div>
-        ))}
-      </div>
+            <div className="flex flex-row gap-2">
+                {currentWeek.map((day, index) => {
+                    const chosenDateString = chosenDate.getDate() + " " + chosenDate.toDateString().split(" ")[1];
 
-      <button
-        onClick={goToNextWeek}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-      >
-        Next
-      </button>
-    </div>
-  );
+                    const containerStyle = day.date === chosenDateString
+                        ? 'bg-primary text-white text-center py-2 px-4 rounded-lg text-lg w-20 h-20'
+                        : 'bg-gray-200 text-center py-2 px-4 rounded-lg text-lg w-20 h-20';
+
+                    return (<div
+                        key={index}
+                        className={containerStyle}>
+                        <div>{day.name}</div>
+                        <div className="text-sm text-gray-600">{day.date}</div>
+                    </div>)
+                })}
+            </div>
+
+            <button
+                onClick={goToNextWeek}
+                className="bg-primary-muted text-white px-4 py-2 rounded-lg hover:bg-primary transition"
+            >
+              Next
+            </button>
+        </div>
+    );
 };
 
-export default WeekSwitcher;
+Calendar.propTypes = {
+    
+};
+
+export default Calendar;
