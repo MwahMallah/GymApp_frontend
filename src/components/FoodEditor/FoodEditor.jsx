@@ -40,7 +40,7 @@ function FoodEditor({ food }) {
 
         // Dispatch the updated record to Redux
         dispatch(updateFood(updatedRecord));
-        setNotification("Changes saved");
+        dispatch(setNotification("Changes saved"));
     }
 
     // Cancel changes: revert tempFood to the original food prop
