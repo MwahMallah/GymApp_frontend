@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import ExerciseEditor from "../../components/ExerciseEditor/ExerciseEditor";
 import { addExercise, initializeAllExercises } from "../../reducers/exerciseReducer";
 import { useDispatch, useSelector } from "react-redux";
+import WeekSwitcher from "../../components/Calendar/Calendar";
 
 function Exercises() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -24,23 +25,27 @@ function Exercises() {
     }, [dispatch, date]);
 
     return (
-        <div>
-            <h2>Exercises</h2>
-            <label htmlFor="date"></label>
-            <input type="date" name="" 
-                id="date" lang="en" 
-                value={date} 
-                onChange={changeDate}/>
-            {exercises.length === 0
-                ? <p>No exercises for this date</p>
-                : <ExerciseEditor exercises={exercises}/>
-            }
-            <form action="" onSubmit={handleAddExercise}>
-                <label htmlFor="name">Exercise name: </label>
-                <input type="text" name="name" id="" />
-                <button type="submit">Add exercise</button>
-            </form>
+        <div className="card flex flex-col col-span-4 rounded-3xl overflow-y-auto overflow-x-hidden">
+        <h1 className="text-center text-2xl">Week Switcher</h1>
+        <WeekSwitcher/>
         </div>
+        // <div>
+        //     <h2>Exercises</h2>
+        //     <label htmlFor="date"></label>
+        //     <input type="date" name="" 
+        //         id="date" lang="en" 
+        //         value={date} 
+        //         onChange={changeDate}/>
+        //     {exercises.length === 0
+        //         ? <p>No exercises for this date</p>
+        //         : <ExerciseEditor exercises={exercises}/>
+        //     }
+        //     <form action="" onSubmit={handleAddExercise}>
+        //         <label htmlFor="name">Exercise name: </label>
+        //         <input type="text" name="name" id="" />
+        //         <button type="submit">Add exercise</button>
+        //     </form>
+        // </div>
     )
 }
 
