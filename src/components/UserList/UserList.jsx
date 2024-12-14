@@ -26,7 +26,7 @@ function UserList() {
     }
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             {allUsers.map(user => 
                 <UserListItem key={user.id} user={user} 
                     handleAdd={addFriendHandler(user.id)}
