@@ -6,7 +6,6 @@ import Selector from "../Selector/Selector";
 import { startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
 import { BarChart, Bar, Cell, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 
-
 const barColor = '#c6f799';
 const selectedBarColor = '#f7ad38';
 
