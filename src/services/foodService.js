@@ -1,3 +1,8 @@
+/*
+ * Author: Anton Havlovskyi
+ * VUT login: xhavlo01
+*/
+
 import axios from "axios";
 import { token } from "./loginService";
 

@@ -1,3 +1,8 @@
+/*
+ * Author: Anton Havlovskyi
+ * VUT login: xhavlo01
+*/
+
 import { createSlice } from "@reduxjs/toolkit";
 
 import { setUser } from "./userReducer.js";

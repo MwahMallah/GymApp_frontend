@@ -1,3 +1,8 @@
+/*
+ * Author: Anton Havlovskyi
+ * VUT login: xhavlo01
+*/
+
 import FoodSection from "../../components/FoodSection/FoodSection";
 
 function Food() {

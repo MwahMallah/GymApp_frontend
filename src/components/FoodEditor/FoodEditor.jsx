@@ -1,3 +1,8 @@
+/*
+ * Author: Anton Havlovskyi
+ * VUT login: xhavlo01
+*/
+
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateFood, removeFood } from '../../reducers/foodReducer';
@@ -6,9 +11,10 @@ import Notification from "../Notification/Notification";
 
 function FoodEditor({ food }) {
     const dispatch = useDispatch();
+    // Display template with time cropped to HH:MM
     const [tempFood, setTempFood] = useState(food.map(record => ({
         ...record,
-        time: new Date(record.date).toTimeString().slice(0, 5), // Extract initial HH:MM
+        time: new Date(record.date).toTimeString().slice(0, 5),
     })));
 
     // Sync tempFood with changes in the food prop
@@ -19,7 +25,8 @@ function FoodEditor({ food }) {
         })));
     }, [food]);
 
-    // Save changes: modify only the visible fields and dispatch updated record
+    // Save changes => modify only the visible fields and dispatch updated record
+    // Also show notification of operation result
     async function handleSave(index) {
         const updatedRecord = { ...tempFood[index] };
         const timeParts = updatedRecord.time.split(":");
@@ -27,7 +34,7 @@ function FoodEditor({ food }) {
             const [hours, minutes] = timeParts.map(Number);
             if (!isNaN(hours) && !isNaN(minutes) && hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60) {
                 const date = new Date(updatedRecord.date);
-                date.setHours(hours, minutes, 0, 0); // Update timestamp with valid time
+                date.setHours(hours, minutes, 0, 0);
                 updatedRecord.date = date.toISOString();
             } else {
                 dispatch(setNotification("Invalid time format. Please enter in HH:MM format."));
@@ -38,12 +45,11 @@ function FoodEditor({ food }) {
             return;
         }
 
-        // Dispatch the updated record to Redux
         dispatch(updateFood(updatedRecord));
         dispatch(setNotification("Changes saved"));
     }
 
-    // Cancel changes: revert tempFood to the original food prop
+    // Cancel changes => revert tempFood to the original food prop
     function handleCancel() {
         setTempFood(food.map(record => ({
             ...record,
@@ -52,6 +58,7 @@ function FoodEditor({ food }) {
     }
 
     // Handle input changes in tempFood
+    // This is needed to prevent input field "freezing"
     function handleChange(index, field, value) {
         setTempFood((prev) => {
             const updatedTempFood = [...prev];
@@ -60,6 +67,7 @@ function FoodEditor({ food }) {
         });
     }
 
+    // Remove food record
     async function handleRemove(record) {
         dispatch(removeFood(record));
     }

@@ -1,3 +1,8 @@
+/*
+ * Author: Anton Havlovskyi
+ * VUT login: xhavlo01
+*/
+
 import { useEffect, useState } from "react"
 import { addFood, initializeAllFood } from "../../reducers/foodReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +13,12 @@ function FoodSection () {
     const food = useSelector(({user, allFood}) => allFood);
     const dispatch = useDispatch();
 
+    // Date switch
     function changeDate(e) {
         setDate(e.target.value);
     }
 
+    // Add new default food record
     async function handleAddFood() {
         const foodName = "Apple";
         const foodSize = 200;
