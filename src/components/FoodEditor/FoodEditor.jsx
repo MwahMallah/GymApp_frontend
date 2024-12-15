@@ -30,11 +30,11 @@ function FoodEditor({ food }) {
                 date.setHours(hours, minutes, 0, 0); // Update timestamp with valid time
                 updatedRecord.date = date.toISOString();
             } else {
-                dispatch(setNotification("Invalid time format. Please enter in HH:MM format.", type="error"));
+                dispatch(setNotification("Invalid time format. Please enter in HH:MM format."));
                 return;
             }
         } else {
-            dispatch(setNotification("Invalid time format. Please enter in HH:MM format.", type="error"));
+            dispatch(setNotification("Invalid time format. Please enter in HH:MM format."));
             return;
         }
 
@@ -68,59 +68,55 @@ function FoodEditor({ food }) {
         <div>
             <Notification />
             {tempFood.map((record, index) => (
-                <div key={record.id} className="p-4 border rounded-lg shadow flex flex-row justify-between mb-2">
-                    <div className="grid grid-cols-4 gap-4 items-center">
+                <div key={record.id} className="pt-4 pb-4 pr-5 pl-7 border rounded-3xl shadow flex flex-row justify-between items-center mb-2">
                         <input
                             type="text"
                             value={record.name}
                             onChange={(e) => handleChange(index, "name", e.target.value)}
-                            className="border rounded p-2"
+                            className="border-l-2 border-r-2 border-primary p-2 text-center w-full"
                             placeholder="Name"
                         />
                         <input
                             type="text"
                             value={record.time}
                             onChange={(e) => handleChange(index, "time", e.target.value)}
-                            className="border rounded p-2"
+                            className="border-l-2 border-r-2 border-primary p-2 text-center w-full"
                             placeholder="Time"
                         />
                         <input
                             type="text"
                             value={record.size}
                             onChange={(e) => handleChange(index, "size", e.target.value)}
-                            className="border rounded p-2"
+                            className="border-l-2 border-r-2 border-primary p-2 text-center w-full"
                             placeholder="Grams"
                         />
                         <input
                             type="text"
-                            value={record.calories}
-                            onChange={(e) => handleChange(index, "calories", e.target.value)}
-                            className="border rounded p-2"
+                            value={Math.round(record.calories)}
+                            className="border-l-2 border-r-2 border-danger-muted p-2 text-center w-full"
                             placeholder="Calories"
                         />
-                        
+                        <div className="flex flex-row ml-10 gap-2 items-center justify-center">
+                            <button
+                                onClick={() => handleSave(index)}
+                                className="bg-primary text-white px-4 py-2 rounded-3xl hover:bg-green-800"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={handleCancel}
+                                className="bg-gray-500 text-white px-4 py-2 rounded-3xl hover:bg-gray-600"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => handleRemove(record)}
+                                className="bg-red-500 text-white px-4 py-2 rounded-3xl hover:bg-red-600"
+                            >
+                                Remove
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex gap-2 mt-4">
-                        <button
-                            onClick={() => handleSave(index)}
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={handleCancel}
-                            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={() => handleRemove(record)}
-                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                        >
-                            Remove
-                        </button>
-                    </div>
-                </div>
             ))}
         </div>
     );
