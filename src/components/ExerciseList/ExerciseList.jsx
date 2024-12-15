@@ -3,7 +3,7 @@ import dumbellPath from "../../assets/dumbell";
 import kiloPath from "../../assets/kilo";
 import repeatPath from "../../assets/repeat";
 
-function ExerciseList({exercises, handleAddExercise, handleUpdateExercise}) {
+function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handleDeleteExercise}) {
     const handleNewExercise = () => {
         const newExercise = {
             name: "Bench press",
@@ -60,59 +60,67 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise}) {
     return (
         <div className="card rounded-3xl flex-grow h-[450px] w-[1000px] flex flex-col gap-2 items-center">
             {exercises.map(e => {               
-                return (<div className="group w-[400px] p-2 border-2 flex flex-row gap-2 border-gray-600 rounded-xl" key={e.id}>
-                    <div className="flex flex-row gap-2 border-r-2 items-center justify-center border-black pr-2">
-                        <svg width="25" viewBox="0 0 101 101" className="fill-primary group-hover:fill-[#f7ad38]">
-                            <path d={dumbellPath}/>
-                        </svg>
-                        <input
-                            type="text"
-                            value={e.name}
-                            onChange={event => handleInputChange(e.id, "name", event.target.value)}
-                            className="border rounded p-1 w-[100px]"
-                        />
-                    </div>
-                    <div className="flex flex-row gap-2 border-r-2 items-center justify-center border-black pr-2">
-                        <svg width="25" viewBox="0 0 77 77" className="fill-primary group-hover:fill-[#f7ad38]">
-                            <path d={kiloPath}/>
-                        </svg>
-                        <input
-                            type="number"
-                            value={e.sets[0].weight}
-                            onChange={event =>
-                                handleInputChange(e.id, "sets", { weight: event.target.value }, 0)
-                            }
-                            className="border rounded p-1 w-[50px]"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <div className="flex flex-row gap-2 items-center justify-center mt-2">
-                            <button
-                                onClick={() => handleSetCountChange(e.id, "remove")}
-                                className="w-4 bg-danger text-white rounded hover:bg-red-600">
-                                -
-                            </button>
-                            <div className="flex items-center justify-center">
-                                {e.sets.length}
-                            </div>
-                            
-                            <button
-                                onClick={() => handleSetCountChange(e.id, "add")}
-                                className="w-4 bg-primary text-white rounded hover:bg-primary-muted">
-                                +
-                            </button>
+                return (<div key={e.id} className="flex flex-row gap-2 items-center">
+                    <div className="group w-[400px] p-2 border-2 flex flex-row gap-2 border-gray-600 rounded-xl" key={e.id}>
+                        <div className="flex flex-row gap-2 border-r-2 items-center justify-center border-black pr-2">
+                            <svg width="25" viewBox="0 0 101 101" className="fill-primary group-hover:fill-[#f7ad38]">
+                                <path d={dumbellPath}/>
+                            </svg>
+                            <input
+                                type="text"
+                                value={e.name}
+                                onChange={event => handleInputChange(e.id, "name", event.target.value)}
+                                className="border rounded p-1 w-[100px]"
+                            />
                         </div>
-                        <div className="flex flex-row justify-center">
-                            <div className="flex flex-col">
-                                <input
-                                    type="number"
-                                    value={e.sets[0].reps}
-                                    onChange={event => handleInputChange(e.id, "sets", { reps: event.target.value }, 0)}
-                                    className="border rounded p-1 w-[50px]"
-                                />
+                        <div className="flex flex-row gap-2 border-r-2 items-center justify-center border-black pr-2">
+                            <svg width="25" viewBox="0 0 77 77" className="fill-primary group-hover:fill-[#f7ad38]">
+                                <path d={kiloPath}/>
+                            </svg>
+                            <input
+                                type="number"
+                                value={e.sets[0].weight}
+                                onChange={event =>
+                                    handleInputChange(e.id, "sets", { weight: event.target.value }, 0)
+                                }
+                                className="border rounded p-1 w-[50px]"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <div className="flex flex-row gap-2 items-center justify-center mt-2">
+                                <button
+                                    onClick={() => handleSetCountChange(e.id, "remove")}
+                                    className="w-4 bg-danger text-white rounded hover:bg-red-600">
+                                    -
+                                </button>
+                                <div className="flex items-center justify-center">
+                                    {e.sets.length}
+                                </div>
+                                
+                                <button
+                                    onClick={() => handleSetCountChange(e.id, "add")}
+                                    className="w-4 bg-primary text-white rounded hover:bg-primary-muted">
+                                    +
+                                </button>
+                            </div>
+                            <div className="flex flex-row justify-center">
+                                <div className="flex flex-col">
+                                    <input
+                                        type="number"
+                                        value={e.sets[0].reps}
+                                        onChange={event => handleInputChange(e.id, "sets", { reps: event.target.value }, 0)}
+                                        className="border rounded p-1 w-[50px]"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => handleDeleteExercise(e)} 
+                        className="py-1 px-3 bg-danger text-white rounded-3xl h-[50px]">
+                        Delete
+                    </button>
                 </div>)
             })}
 
@@ -137,7 +145,8 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise}) {
 
 ExerciseList.propTypes = {
     handleAddExercise: PropTypes.func.isRequired,
-    handleUpdateExercise: PropTypes.func.isRequired
+    handleUpdateExercise: PropTypes.func.isRequired,
+    handleDeleteExercise: PropTypes.func.isRequired
 }
 
 export default ExerciseList

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { addExercise, initializeAllExercises, updateExercise } from "../../reducers/exerciseReducer";
+import { addExercise, initializeAllExercises, updateExercise, deleteExercise } from "../../reducers/exerciseReducer";
 import { useDispatch, useSelector } from "react-redux";
 import Calendar from "../../components/Calendar/Calendar";
 import ExerciseList from "../../components/ExerciseList/ExerciseList";
@@ -20,8 +20,11 @@ function Exercises() {
     }
 
     async function handleUpdateExercise(newExercise) {
-        console.log(newExercise);
         dispatch(updateExercise(newExercise));
+    }
+
+    async function handleDeleteExercise(exerciseToDelete) {
+        dispatch(deleteExercise(exerciseToDelete));
     }
 
     useEffect(() => {
@@ -44,7 +47,8 @@ function Exercises() {
             <Calendar chosenDate={chosenDate} changeDate={changeDate}/>
             <ExerciseList exercises={filteredExercises} 
                 handleAddExercise={handleAddExercise} 
-                handleUpdateExercise={handleUpdateExercise}/>
+                handleUpdateExercise={handleUpdateExercise}
+                handleDeleteExercise={handleDeleteExercise}/>
         </div>
     )
 }

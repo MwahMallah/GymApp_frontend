@@ -43,6 +43,15 @@ export function updateExercise(exercise) {
     }
 }
 
+export function deleteExercise(exercise) {
+    return async function(dispatch) {
+        await removeExerciseServer(exercise);
+        const updatedUser = await getUser(exercise.user);
+        dispatch(setUser(updatedUser));
+        dispatch(removeExerciseReducer(exercise));
+    }
+}
+
 export function initializeAllExercises(date) {
     return async function (dispatch) {
         const exercises = await getExercisesServer(date);
@@ -51,9 +60,9 @@ export function initializeAllExercises(date) {
 }
 
 export function removeExercise(exercise) {
-    return async function (dispatch) {
-        await removeExerciseServer(exercise.id);
-        dispatch(setExercises(exercise))
+    return async function (dispatch) {        
+        await removeExerciseServer(exercise);
+        dispatch(setUser(exercise.user));
         dispatch(removeExerciseReducer(exercise));
     }
 }
