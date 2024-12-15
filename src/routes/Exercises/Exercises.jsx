@@ -40,8 +40,7 @@ function Exercises() {
             exerciseDate.getDate() === chosenDate.getDate()
         );
     });
-    console.log(exercises);
-
+    
     return (
         <div className="flex flex-col mx-8 items-center gap-4 rounded-3xl overflow-y-auto overflow-x-hidden">
             <Calendar chosenDate={chosenDate} changeDate={changeDate}/>

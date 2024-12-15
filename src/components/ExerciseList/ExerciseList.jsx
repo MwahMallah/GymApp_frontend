@@ -2,12 +2,16 @@ import PropTypes from "prop-types";
 import dumbellPath from "../../assets/dumbell";
 import kiloPath from "../../assets/kilo";
 import repeatPath from "../../assets/repeat";
+import Selector from "../Selector/Selector";
+
+const exerciseTypes = ['back', 'legs', 'chest', 'arms'];
 
 function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handleDeleteExercise}) {
     const handleNewExercise = () => {
         const newExercise = {
             name: "Bench press",
             sets: [{ weight: "30", reps: "12" }], 
+            type: 'chest'
         };
         handleAddExercise(newExercise);
     };
@@ -26,9 +30,16 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handl
                 : e
         );
 
+        console.log(updatedExercises);
+
         const updatedExercise = updatedExercises.find(e => e.id === id);
         handleUpdateExercise(updatedExercise); 
     };
+
+    function handleSelectionChange(event, exercise) {
+        const newType = event.target.value;
+        handleInputChange(exercise.id, "type", newType);
+    }
 
     const handleSetCountChange = (id, action) => {
         const updatedExercises = exercises.map(e => {
@@ -61,7 +72,7 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handl
         <div className="card rounded-3xl flex-grow h-[450px] w-[1000px] flex flex-col gap-2 items-center">
             {exercises.map(e => {               
                 return (<div key={e.id} className="flex flex-row gap-2 items-center">
-                    <div className="group w-[400px] p-2 border-2 flex flex-row gap-2 border-gray-600 rounded-xl" key={e.id}>
+                    <div className="group w-[430px] p-2 border-2 flex flex-row gap-2 border-gray-600 rounded-xl" key={e.id}>
                         <div className="flex flex-row gap-2 border-r-2 items-center justify-center border-black pr-2">
                             <svg width="25" viewBox="0 0 101 101" className="fill-primary group-hover:fill-[#f7ad38]">
                                 <path d={dumbellPath}/>
@@ -86,7 +97,7 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handl
                                 className="border rounded p-1 w-[50px]"
                             />
                         </div>
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1 border-black pr-2 border-r-2">
                             <div className="flex flex-row gap-2 items-center justify-center mt-2">
                                 <button
                                     onClick={() => handleSetCountChange(e.id, "remove")}
@@ -113,6 +124,11 @@ function ExerciseList({exercises, handleAddExercise, handleUpdateExercise, handl
                                     />
                                 </div>
                             </div>
+                        </div>
+                        <div className="flex flex-row justify-center items-center">
+                            <Selector options={exerciseTypes} 
+                                handleSelectionChange={event => handleSelectionChange(event, e)}
+                                selectedOption={e.type}/>
                         </div>
                     </div>
 
