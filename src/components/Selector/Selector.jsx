@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 
 function Selector({options, handleSelectionChange}) {
     return (
-        <select onChange={handleSelectionChange}>
-            <option value="">Not chosen</option>
+        <select className='bg-background rounded-3xl p-2' onChange={handleSelectionChange}>
             {options.map(o => 
                 <option key={o} value={o}>{o}</option>
             )}
