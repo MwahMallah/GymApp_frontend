@@ -39,7 +39,9 @@ export async function updateExerciseServer(exercise) {
     return data;
 }
 
-export async function removeExerciseServer(id) {
+export async function removeExerciseServer(exercise) {
+    const id = exercise.id;
+
     await axios.delete(`${baseUrl}/${id}`, {
         headers: {
             Authorization: token,
