@@ -60,8 +60,9 @@ export function initializeAllExercises(date) {
 }
 
 export function removeExercise(exercise) {
-    return async function (dispatch) {
-        await removeExerciseServer(exercise.id);
+    return async function (dispatch) {        
+        await removeExerciseServer(exercise);
+        dispatch(setUser(exercise.user));
         dispatch(removeExerciseReducer(exercise));
     }
 }

@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import TrackingHistory from "../TrackingHistory/TrackingHistory";
 import PieCharts from "../PieCharts/PieCharts";
 

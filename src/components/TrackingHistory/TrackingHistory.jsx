@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import { useSelector } from "react-redux";
 import { useState } from "react";
 

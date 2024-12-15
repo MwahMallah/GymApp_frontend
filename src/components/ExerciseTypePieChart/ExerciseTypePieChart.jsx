@@ -10,8 +10,8 @@ import { useState } from "react";
 import { startOfWeek, endOfWeek, isWithinInterval, addWeeks } from "date-fns";
 import ActivePieSlice from "../ActivePieSlice/ActivePieSlice";
 
-function NutrientPieChart() {
-    const food = useSelector(({user}) => user.food);
+function ExerciseTypePieChart() {
+    const exercises = useSelector(({user}) => user.exercises);
     const [weekOffset, setWeekOffset] = useState(0);
 
     const currentDate = new Date();
@@ -20,30 +20,26 @@ function NutrientPieChart() {
     const startOfCurrentWeek = startOfWeek(adjustedDate, { weekStartsOn: 1 });
     const endOfCurrentWeek = endOfWeek(adjustedDate, { weekStartsOn: 1 });    
 
-    const weeklyData = food.filter(f => {
+    const weeklyData = exercises.filter(f => {
         const exerciseDate = new Date(f.date);
         return isWithinInterval(exerciseDate, { start: startOfCurrentWeek, end: endOfCurrentWeek });
     });    
 
-    // Aggregate nutrients
-    const totals = weeklyData.reduce(
-        (acc, item) => {
-            acc.proteins += item.proteins || 0;
-            acc.fats += item.fats || 0;
-            acc.carbs += item.carbs || 0;
-            return acc;
-        },
-        { proteins: 0, fats: 0, carbs: 0 }
-    );
+    const COLORS = ["#FADCAF", "#FCCA7F", "#FFB84C"];
 
-    const COLORS = ["#B5F180", "#97DB57", "#6FA63A"];
+    //Group exercises by type and count them
+    const exerciseCounts = weeklyData.reduce((acc, item) => {
+        const type = item.type || "Unknown"; // if there is no type, so "Unknown"
+        acc[type] = (acc[type] || 0) + 1;
+        return acc;
+    }, {});
 
-    // Prepare data for the PieChart
-    const pieData = [
-        { name: "Proteins", value: parseFloat(totals.proteins.toFixed(1)), fill: COLORS[0] },
-        { name: "Fats", value: parseFloat(totals.fats.toFixed(1)), fill: COLORS[1] },
-        { name: "Carbs", value: parseFloat(totals.carbs.toFixed(1)), fill: COLORS[2] },
-    ];
+    // turn to data format for PieChart
+    const pieData = Object.keys(exerciseCounts).map((key, index) => ({
+        name: key,
+        value: exerciseCounts[key],
+        fill: COLORS[index % COLORS.length], // Зацикливаем цвета
+    }));
 
     function handleDateSelect(e) {
         const newWeekOffsetString = e.target.value;
@@ -66,7 +62,7 @@ function NutrientPieChart() {
     return (
         <>
             <div className="flex flex-row justify-between items-center mx-7 mt-1">
-                <h2>Nutrients</h2>
+                <h2>Muscle Group</h2>
                 <Selector options={['This week', 'Last week']} 
                     handleSelectionChange={handleDateSelect}/>
             </div>
@@ -98,4 +94,4 @@ function NutrientPieChart() {
     )
 }
 
-export default NutrientPieChart
+export default ExerciseTypePieChart

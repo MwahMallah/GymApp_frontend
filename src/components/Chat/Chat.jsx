@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import PropTypes from "prop-types"
 import Button from "../Button/Button";
 import { getMessagesFromChat, sawMessage, socket } from "../../services/messageService";
