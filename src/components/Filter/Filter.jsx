@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import PropTypes from "prop-types";
 
 function Filter({ handleInputChange, clearFilter, filterText }) {

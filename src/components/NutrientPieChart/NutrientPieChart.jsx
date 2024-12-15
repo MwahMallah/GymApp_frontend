@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import Selector from "../Selector/Selector";
 import { useSelector } from "react-redux";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";

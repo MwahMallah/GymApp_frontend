@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import NutrientPieChart from "../NutrientPieChart/NutrientPieChart";
 import ExerciseTypePieChart from "../ExerciseTypePieChart/ExerciseTypePieChart";
 import ExerciseAmountPieChart from "../ExerciseAmountPieChart/ExerciseAmountPieChart";

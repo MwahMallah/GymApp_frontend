@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
 import FriendsSection from "../../components/FriendsSection/FriendsSection"
 import DataSection from "../../components/DataSection/DataSection"
 
