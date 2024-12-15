@@ -1,3 +1,9 @@
+/*
+ * Author: Maksim Dubrovin
+ * Login: xdubro01
+ */
+
+
 import FriendsList from "../FriendList/FriendsList"
 import Filter from "../Filter/Filter"
 import { useState } from "react"

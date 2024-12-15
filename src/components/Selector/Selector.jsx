@@ -1,3 +1,8 @@
+/*
+ * Author: Maksim Dubrovin, Ilya Volkov
+ * Login: xdubro01, xvolko05
+ */
+
 import PropTypes from 'prop-types'
 
 function Selector({options, handleSelectionChange, selectedOption}) {
