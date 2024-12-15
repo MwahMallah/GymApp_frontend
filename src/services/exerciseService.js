@@ -14,7 +14,7 @@ export async function getExercisesServer(date) {
 }
 
 export async function addExerciseServer(exercise, date) {
-    const {data} = await axios.post(baseUrl, {name: exercise.name, sets: exercise.sets, date}, 
+    const {data} = await axios.post(baseUrl, {name: exercise.name, sets: exercise.sets, type: exercise.type, date}, 
         {
             headers: {
                 Authorization: token,
