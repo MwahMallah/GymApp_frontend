@@ -1,45 +1,53 @@
 import { useEffect, useState } from "react"
-import ExerciseEditor from "../../components/ExerciseEditor/ExerciseEditor";
-import { addExercise, initializeAllExercises } from "../../reducers/exerciseReducer";
+import { addExercise, initializeAllExercises, updateExercise, deleteExercise } from "../../reducers/exerciseReducer";
 import { useDispatch, useSelector } from "react-redux";
+import Calendar from "../../components/Calendar/Calendar";
+import ExerciseList from "../../components/ExerciseList/ExerciseList";
 
 function Exercises() {
-    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-    const exercises = useSelector(({user, allExercises}) => allExercises);
+    const exercises = useSelector(({allExercises}) => allExercises);
     const dispatch = useDispatch();
 
-    function changeDate(e) {
-        console.log(e.target.value);
-        setDate(e.target.value);
+    const [chosenDate, setChosenDate] = useState(new Date());
+
+    function changeDate(newDate) {
+        setChosenDate(newDate);
     }
 
-    async function handleAddExercise(e) {
-        e.preventDefault();
-        const exerciseName = e.target.name.value;
-        dispatch(addExercise(date,exerciseName));
+    async function handleAddExercise(newExercise) {
+        const currentDate = chosenDate.toISOString().split('T')[0];
+        dispatch(addExercise(currentDate, newExercise));
+    }
+
+    async function handleUpdateExercise(newExercise) {
+        dispatch(updateExercise(newExercise));
+    }
+
+    async function handleDeleteExercise(exerciseToDelete) {
+        dispatch(deleteExercise(exerciseToDelete));
     }
 
     useEffect(() => {
-        dispatch(initializeAllExercises(date));
-    }, [dispatch, date]);
+        const currentDate = chosenDate.toISOString().split('T')[0];
+        dispatch(initializeAllExercises(currentDate));
+    }, [dispatch, chosenDate]);
 
+    const filteredExercises = exercises.filter(e => {
+        const exerciseDate = new Date(e.date); 
+        return (
+            exerciseDate.getFullYear() === chosenDate.getFullYear() &&
+            exerciseDate.getMonth() === chosenDate.getMonth() &&
+            exerciseDate.getDate() === chosenDate.getDate()
+        );
+    });
+    
     return (
-        <div>
-            <h2>Exercises</h2>
-            <label htmlFor="date"></label>
-            <input type="date" name="" 
-                id="date" lang="en" 
-                value={date} 
-                onChange={changeDate}/>
-            {exercises.length === 0
-                ? <p>No exercises for this date</p>
-                : <ExerciseEditor exercises={exercises}/>
-            }
-            <form action="" onSubmit={handleAddExercise}>
-                <label htmlFor="name">Exercise name: </label>
-                <input type="text" name="name" id="" />
-                <button type="submit">Add exercise</button>
-            </form>
+        <div className="flex flex-col mx-8 items-center gap-4 rounded-3xl overflow-y-auto overflow-x-hidden">
+            <Calendar chosenDate={chosenDate} changeDate={changeDate}/>
+            <ExerciseList exercises={filteredExercises} 
+                handleAddExercise={handleAddExercise} 
+                handleUpdateExercise={handleUpdateExercise}
+                handleDeleteExercise={handleDeleteExercise}/>
         </div>
     )
 }

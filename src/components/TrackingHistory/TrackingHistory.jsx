@@ -41,7 +41,8 @@ function TrackingHistory() {
     }
 
     const getDayOfWeek = (dateString) => {
-        return days[new Date(dateString).getDay()];
+        const dayIndex = new Date(dateString).getDay(); // 0 = Sunday, 6 = Saturday
+        return days[(dayIndex + 6) % 7];
     };
 
     const chosenExercises = exercisesThisWeek

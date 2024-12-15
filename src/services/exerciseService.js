@@ -13,8 +13,8 @@ export async function getExercisesServer(date) {
     return data;
 }
 
-export async function addExerciseServer(name, date) {
-    const {data} = await axios.post(baseUrl, {name, date}, 
+export async function addExerciseServer(exercise, date) {
+    const {data} = await axios.post(baseUrl, {name: exercise.name, sets: exercise.sets, type: exercise.type, date}, 
         {
             headers: {
                 Authorization: token,
@@ -26,7 +26,22 @@ export async function addExerciseServer(name, date) {
     return data;
 }
 
-export async function removeExerciseServer(id) {
+export async function updateExerciseServer(exercise) {
+    const {data} = await axios.put(`${baseUrl}/${exercise.id}`, exercise, 
+        {
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json"
+            }
+        }
+    )
+
+    return data;
+}
+
+export async function removeExerciseServer(exercise) {
+    const id = exercise.id;
+
     await axios.delete(`${baseUrl}/${id}`, {
         headers: {
             Authorization: token,
