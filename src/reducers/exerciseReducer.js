@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { setUser } from "./userReducer";
-import { getExercisesServer, addExerciseServer, removeExerciseServer } from "../services/exerciseService";
+import { getExercisesServer, addExerciseServer, updateExerciseServer, removeExerciseServer } from "../services/exerciseService";
 import { getUser } from "../services/userService";
 
 const exerciseSlice = createSlice({
@@ -12,13 +12,18 @@ const exerciseSlice = createSlice({
         addExerciseReducer: (state, {payload}) => state.concat(payload),
         removeExerciseReducer: (state, {payload}) => {
             return state.filter(e => e.id !== payload.id)
-        }
+        },
+        updateExerciseReducer: (state, {payload}) => state.map(
+            e => e.id === payload.id
+                ? payload
+                : e
+        )
     }
 })
 
 export default exerciseSlice.reducer;
 
-const {setExercises, addExerciseReducer, removeExerciseReducer} = exerciseSlice.actions;
+const {setExercises, updateExerciseReducer, addExerciseReducer, removeExerciseReducer} = exerciseSlice.actions;
 
 export function addExercise(date, exercise) {
     return async function(dispatch) {
@@ -26,6 +31,15 @@ export function addExercise(date, exercise) {
         const updatedUser = await getUser(newExercise.user);
         dispatch(setUser(updatedUser));
         dispatch(addExerciseReducer(newExercise));
+    }
+}
+
+export function updateExercise(exercise) {
+    return async function(dispatch) {
+        const updatedExercise = await updateExerciseServer(exercise);
+        const updatedUser = await getUser(updatedExercise.user);
+        dispatch(setUser(updatedUser));
+        dispatch(updateExerciseReducer(updatedExercise));
     }
 }
 
